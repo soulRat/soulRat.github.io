@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>HttpClient工具类 - 魂鼠</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="引言记录使用
+依赖12345&lt;dependenc...">
+  <meta name="author" content="朱家兴">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: true,
+        alipay: '/images/theme/alipay.pic.jpg',
+        wechat: '/images/theme/wechat.pic.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: false,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: '/images/theme/alipay.pic.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: true,
+        path: 'search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+        <i class="iconfont iconsearch j-navbar-search"></i>
+      
+    </div>
+    <div class="center">HttpClient工具类</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/soulRat/soulRat">soulRat</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">HttpClient工具类</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>三月 05, 2021</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>9306</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>记录使用</p>
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.httpcomponents<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>httpclient<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.5.13<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> org.apache.http.NameValuePair;<br><span class="hljs-keyword">import</span> org.apache.http.client.entity.UrlEncodedFormEntity;<br><span class="hljs-keyword">import</span> org.apache.http.client.methods.CloseableHttpResponse;<br><span class="hljs-keyword">import</span> org.apache.http.client.methods.HttpGet;<br><span class="hljs-keyword">import</span> org.apache.http.client.methods.HttpPost;<br><span class="hljs-keyword">import</span> org.apache.http.client.utils.URIBuilder;<br><span class="hljs-keyword">import</span> org.apache.http.entity.ContentType;<br><span class="hljs-keyword">import</span> org.apache.http.entity.StringEntity;<br><span class="hljs-keyword">import</span> org.apache.http.impl.client.CloseableHttpClient;<br><span class="hljs-keyword">import</span> org.apache.http.impl.client.HttpClients;<br><span class="hljs-keyword">import</span> org.apache.http.message.BasicNameValuePair;<br><span class="hljs-keyword">import</span> org.apache.http.util.EntityUtils;<br><span class="hljs-keyword">import</span> org.slf4j.Logger;<br><span class="hljs-keyword">import</span> org.slf4j.LoggerFactory;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.net.URI;<br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * httpclient工具类</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author <span class="hljs-variable">zhujx</span></span></span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date </span>2019/10/21</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CommHttpUtils</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> final Logger logger = LoggerFactory.getLogger(CommHttpUtils.class);<br><br>    <span class="hljs-keyword">private</span> final <span class="hljs-keyword">static</span> int SUCCESS = <span class="hljs-number">200</span>;<br><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 带参数和请求头的GET请求</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>url    url</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>param  param</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>header header</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return </span>java.lang.String</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@author <span class="hljs-variable">zhujx</span></span></span><br><span class="hljs-comment">     * <span class="hljs-doctag">@date </span>2019/10/21</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">String</span> <span class="hljs-function"><span class="hljs-title">doGet</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> url, <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, <span class="hljs-built_in">String</span>&gt; param, <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, <span class="hljs-built_in">String</span>&gt; header</span>)</span> &#123;<br>        <span class="hljs-comment">// 创建Httpclient对象</span><br>        CloseableHttpClient httpClient = HttpClients.createDefault();<br>        <span class="hljs-built_in">String</span> resultString = <span class="hljs-string">&quot;&quot;</span>;<br>        CloseableHttpResponse response = <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 创建uri</span><br>            URIBuilder builder = <span class="hljs-keyword">new</span> URIBuilder(url);<br>            <span class="hljs-keyword">if</span> (param != <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-keyword">for</span> (<span class="hljs-built_in">String</span> key : param.keySet()) &#123;<br>                    builder.addParameter(key, param.get(key));<br>                &#125;<br>            &#125;<br>            URI uri = builder.build();<br>            <span class="hljs-comment">// 创建http GET请求</span><br>            HttpGet httpGet = <span class="hljs-keyword">new</span> HttpGet(uri);<br>            <span class="hljs-keyword">if</span> (header != <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-keyword">for</span> (<span class="hljs-built_in">String</span> key : header.keySet()) &#123;<br>                    httpGet.setHeader(key, header.get(key));<br>                &#125;<br>            &#125;<br>            <span class="hljs-comment">// 执行请求</span><br>            response = httpClient.execute(httpGet);<br>            int statusCode = response.getStatusLine().getStatusCode();<br>            <span class="hljs-comment">// 判断返回状态是否为200</span><br>            <span class="hljs-keyword">if</span> (statusCode == SUCCESS) &#123;<br>                resultString = EntityUtils.toString(response.getEntity(), <span class="hljs-string">&quot;UTF-8&quot;</span>);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                logger.warn(<span class="hljs-string">&quot;状态码:&#123;&#125;&quot;</span>, statusCode);<br>                resultString = <span class="hljs-literal">null</span>;<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            logger.warn(e.getMessage(), e);<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">if</span> (response != <span class="hljs-literal">null</span>) &#123;<br>                    response.close();<br>                &#125;<br>                httpClient.close();<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                logger.warn(e.getMessage(), e);<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> resultString;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 带参数GET请求</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>url   url</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>param param</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return </span>java.lang.String</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@author <span class="hljs-variable">zhujx</span></span></span><br><span class="hljs-comment">     * <span class="hljs-doctag">@date </span>2019/10/21</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">String</span> <span class="hljs-function"><span class="hljs-title">doGet</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> url, <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, <span class="hljs-built_in">String</span>&gt; param</span>)</span> &#123;<br>        <span class="hljs-keyword">return</span> doGet(url, param, <span class="hljs-literal">null</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 无参GET请求</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>url url</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return </span>java.lang.String</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@author <span class="hljs-variable">zhujx</span></span></span><br><span class="hljs-comment">     * <span class="hljs-doctag">@date </span>2019/10/21</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">String</span> <span class="hljs-function"><span class="hljs-title">doGet</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> url</span>)</span> &#123;<br>        <span class="hljs-keyword">return</span> doGet(url, <span class="hljs-literal">null</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * application/x-www-form-urlencoded编码方式带参数和请求头的POST请求</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>url    url</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>param  param</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>header header</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return </span>java.lang.String</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@author <span class="hljs-variable">zhujx</span></span></span><br><span class="hljs-comment">     * <span class="hljs-doctag">@date </span>2019/10/21</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">String</span> <span class="hljs-function"><span class="hljs-title">doPost</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> url, <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, <span class="hljs-built_in">String</span>&gt; param, <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, <span class="hljs-built_in">String</span>&gt; header</span>)</span> &#123;<br>        <span class="hljs-comment">// 创建Httpclient对象</span><br>        CloseableHttpClient httpClient = HttpClients.createDefault();<br>        CloseableHttpResponse response = <span class="hljs-literal">null</span>;<br>        <span class="hljs-built_in">String</span> resultString = <span class="hljs-string">&quot;&quot;</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 创建Http Post请求</span><br>            HttpPost httpPost = <span class="hljs-keyword">new</span> HttpPost(url);<br>            <span class="hljs-comment">//添加请求头信息</span><br>            <span class="hljs-keyword">if</span> (header != <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-keyword">for</span> (<span class="hljs-built_in">String</span> key : header.keySet()) &#123;<br>                    httpPost.setHeader(key, header.get(key));<br>                &#125;<br>            &#125;<br>            <span class="hljs-comment">// 创建参数列表</span><br>            <span class="hljs-keyword">if</span> (param != <span class="hljs-literal">null</span>) &#123;<br>                List&lt;NameValuePair&gt; paramList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>                <span class="hljs-keyword">for</span> (<span class="hljs-built_in">String</span> key : param.keySet()) &#123;<br>                    paramList.add(<span class="hljs-keyword">new</span> BasicNameValuePair(key, param.get(key)));<br>                &#125;<br>                <span class="hljs-comment">// 模拟表单</span><br>                UrlEncodedFormEntity entity = <span class="hljs-keyword">new</span> UrlEncodedFormEntity(paramList, <span class="hljs-string">&quot;utf-8&quot;</span>);<br>                httpPost.setEntity(entity);<br>            &#125;<br>            <span class="hljs-comment">// 执行http请求</span><br>            response = httpClient.execute(httpPost);<br>            int statusCode = response.getStatusLine().getStatusCode();<br>            <span class="hljs-comment">// 判断返回状态是否为200</span><br>            <span class="hljs-keyword">if</span> (statusCode == SUCCESS) &#123;<br>                resultString = EntityUtils.toString(response.getEntity(), <span class="hljs-string">&quot;UTF-8&quot;</span>);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                logger.warn(<span class="hljs-string">&quot;状态码:&#123;&#125;&quot;</span>, statusCode);<br>                resultString = <span class="hljs-literal">null</span>;<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            logger.warn(e.getMessage(), e);<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">if</span> (response != <span class="hljs-literal">null</span>) &#123;<br>                    response.close();<br>                &#125;<br>                httpClient.close();<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                logger.warn(e.getMessage(), e);<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> resultString;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * application/x-www-form-urlencoded编码方式带参POST请求</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>url   url</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>param param</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return </span>java.lang.String</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@author <span class="hljs-variable">zhujx</span></span></span><br><span class="hljs-comment">     * <span class="hljs-doctag">@date </span>2019/10/21</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">String</span> <span class="hljs-function"><span class="hljs-title">doPost</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> url, <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, <span class="hljs-built_in">String</span>&gt; param</span>)</span> &#123;<br>        <span class="hljs-keyword">return</span> doPost(url, param, <span class="hljs-literal">null</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * application/x-www-form-urlencoded编码方式无参POST请求</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>url url</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return </span>java.lang.String</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@author <span class="hljs-variable">zhujx</span></span></span><br><span class="hljs-comment">     * <span class="hljs-doctag">@date </span>2019/10/21</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">String</span> <span class="hljs-function"><span class="hljs-title">doPost</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> url</span>)</span> &#123;<br>        <span class="hljs-keyword">return</span> doPost(url, <span class="hljs-literal">null</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * application/json编码方式带请求头POST请求</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>url    url</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>json   json</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>header header</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return </span>java.lang.String</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@author <span class="hljs-variable">zhujx</span></span></span><br><span class="hljs-comment">     * <span class="hljs-doctag">@date </span>2019/10/21</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">String</span> <span class="hljs-function"><span class="hljs-title">doPostJson</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> url, <span class="hljs-built_in">String</span> json, <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, <span class="hljs-built_in">String</span>&gt; header</span>)</span> &#123;<br>        <span class="hljs-comment">// 创建Httpclient对象</span><br>        CloseableHttpClient httpClient = HttpClients.createDefault();<br>        CloseableHttpResponse response = <span class="hljs-literal">null</span>;<br>        <span class="hljs-built_in">String</span> resultString = <span class="hljs-string">&quot;&quot;</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 创建Http Post请求</span><br>            HttpPost httpPost = <span class="hljs-keyword">new</span> HttpPost(url);<br>            <span class="hljs-comment">//添加请求头信息</span><br>            <span class="hljs-keyword">if</span> (header != <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-keyword">for</span> (<span class="hljs-built_in">String</span> key : header.keySet()) &#123;<br>                    httpPost.setHeader(key, header.get(key));<br>                &#125;<br>            &#125;<br>            <span class="hljs-comment">// 创建请求内容</span><br>            StringEntity entity = <span class="hljs-keyword">new</span> StringEntity(json, ContentType.APPLICATION_JSON);<br>            httpPost.setEntity(entity);<br>            <span class="hljs-comment">// 执行http请求</span><br>            response = httpClient.execute(httpPost);<br>            int statusCode = response.getStatusLine().getStatusCode();<br>            <span class="hljs-keyword">if</span> (statusCode == SUCCESS) &#123;<br>                resultString = EntityUtils.toString(response.getEntity(), <span class="hljs-string">&quot;UTF-8&quot;</span>);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                logger.warn(<span class="hljs-string">&quot;状态码:&#123;&#125;&quot;</span>, statusCode);<br>                resultString = <span class="hljs-literal">null</span>;<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            logger.warn(e.getMessage(), e);<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">if</span> (response != <span class="hljs-literal">null</span>) &#123;<br>                    response.close();<br>                &#125;<br>                httpClient.close();<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                logger.warn(e.getMessage(), e);<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> resultString;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * application/json编码方式POST请求</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>url  url</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>json json</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return </span>java.lang.String</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@author <span class="hljs-variable">zhujx</span></span></span><br><span class="hljs-comment">     * <span class="hljs-doctag">@date </span>2019/10/21</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">String</span> <span class="hljs-function"><span class="hljs-title">doPostJson</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> url, <span class="hljs-built_in">String</span> json</span>)</span> &#123;<br>        <span class="hljs-keyword">return</span> doPostJson(url, json, <span class="hljs-literal">null</span>);<br>    &#125;<br><br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><em>如果你喜欢这篇文章，请点个赞，加个关注吧！！！</em></p>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>朱家兴</li>
+    <li><strong>本文链接：</strong><a href="https://soulrat.github.io/2021/03/05/2021002/index.html" title="https:&#x2F;&#x2F;soulrat.github.io&#x2F;2021&#x2F;03&#x2F;05&#x2F;2021002&#x2F;index.html">https:&#x2F;&#x2F;soulrat.github.io&#x2F;2021&#x2F;03&#x2F;05&#x2F;2021002&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="/images/theme/alipay.pic.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Http/" rel="tag">Http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Utils/" rel="tag">Utils</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2021/03/05/2021003/"><i class="iconfont iconleft"></i>Java 时间转换工具类</a>
+    <a href="/2021/03/05/2021001/">Java 连接 Sftp 下载文件 上传文件<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96"><span class="toc-text">依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=875817170 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.google.com.hk// "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/soulRat "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="https://zjx875817170@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/soulRat/soulRat">soulRat</a></p></div>
+  
+</footer>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+    <div class="search">
+  <div class="search-container">
+    <div class="search-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="search-input-icon iconfont iconsearch"></i>
+      <input class="search-input" type="search" id="search-input" placeholder="Search..." autofocus autocomplete="off"
+        autocorrect="off" autocapitalize="off">
+    </div>
+    <div class="search-output" id="search-output"></div>
+  </div>
+</div>
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
