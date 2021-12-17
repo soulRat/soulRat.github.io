@@ -37,7 +37,7 @@
 <p>可以看下我的目录结构</p>
 <p><img  src="https://img-blog.csdnimg.cn/img_convert/d24b92374615a8131c44a864725e5962.png#pic_center"  ><span class="image-caption">在这里插入图片描述</span></p>
 <blockquote>
-<p>下面我还会出两个博客，分别说明git部署和个人服务器部署。</p>
+<p>下面我还会出两个博客，分别说明<a href="http://121.5.10.138:4000/2021/12/17/2021/008/index.html">git部署</a>和个人服务器部署。</p>
 </blockquote>
 <p><em>好了结束了，喜欢就点个赞吧！！！！！</em></p>
 ]]></content>
@@ -55,7 +55,7 @@
     <title>博客部署Github</title>
     <url>/2021/12/17/2021/008/</url>
     <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><blockquote>
-<p> 记上一篇开通个人博客后续<br> 奉上部署到GitHub教程</p>
+<p> 记上一篇开通<a href="http://121.5.10.138:4000/2021/12/15/2021/007/index.html/">个人博客</a>后续<br> 奉上部署到GitHub教程</p>
 </blockquote>
 <h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h2 id="GitHub配置"><a href="#GitHub配置" class="headerlink" title="GitHub配置"></a>GitHub配置</h2><blockquote>
 <p>首先，你需要一个GitHub账号，一个GitHub仓库。见图。<br>注册账号什么的我就不说了<br>注意仓库的名字一定要满足格式<code>$&#123;username&#125;.github.io</code><br>我这边已经创建过了，所以存在了</p>
