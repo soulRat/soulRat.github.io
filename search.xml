@@ -88,6 +88,34 @@
       </tags>
   </entry>
   <entry>
+    <title>Spring Boot 整合Swagger3</title>
+    <url>/2021/12/21/2021/009/</url>
+    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><blockquote>
+<p>之前发过一篇 <a href="http://121.5.10.138:4000/2019/02/28/2019/006/index.html">Spring Boot 整合Swagger2</a> 的文章</p>
+</blockquote>
+<blockquote>
+<p>继续Swagger3</p>
+</blockquote>
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 引入Swagger3依赖 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.springfox<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>springfox-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"># swagger3 配置<br>swagger.service.enable=是否开启Swagger3<br>swagger.service.title=标题<br>swagger.service.version=版本<br>swagger.service.description=说明<br>swagger.service.group-name=分组<br>swagger.service.base-<span class="hljs-keyword">package</span>=controller路径<br></code></pre></td></tr></table></figure>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> lombok.Data;<br><span class="hljs-keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><span class="hljs-keyword">import</span> springfox.documentation.builders.ApiInfoBuilder;<br><span class="hljs-keyword">import</span> springfox.documentation.builders.PathSelectors;<br><span class="hljs-keyword">import</span> springfox.documentation.builders.RequestHandlerSelectors;<br><span class="hljs-keyword">import</span> springfox.documentation.oas.annotations.EnableOpenApi;<br><span class="hljs-keyword">import</span> springfox.documentation.service.ApiInfo;<br><span class="hljs-keyword">import</span> springfox.documentation.spi.DocumentationType;<br><span class="hljs-keyword">import</span> springfox.documentation.spring.web.plugins.Docket;<br><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * swagger3配置信息</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> zhujx</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@EnableOpenApi</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@ConfigurationProperties(prefix = &quot;swagger.service&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Swagger3Config</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 开启swagger3</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Boolean enable;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 名称</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String title;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 版本</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String version;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 说明</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String description;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 分组</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String groupName;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 扫描路径</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String basePackage;<br><br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Docket <span class="hljs-title">docket</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Docket(DocumentationType.OAS_30)<br>                .apiInfo(apiInfo())<br>                .enable(enable)<br>                .groupName(groupName)<br>                .select()<br>                .apis(RequestHandlerSelectors.basePackage(basePackage))<br>                .paths(PathSelectors.any())<br>                .build();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> ApiInfo <span class="hljs-title">apiInfo</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ApiInfoBuilder()<br>                .title(title)<br>                .description(description)<br>                .version(version)<br>                .build();<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><p>Swagger3 的访问路径也有些变化</p>
+<p><a href="http://localhost:8080/swagger-ui/index.html">http://localhost:8080/swagger-ui/index.html</a></p>
+<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>Swagger3 也是支持可以传入Token的，可以搜一搜，我这边就不展示了</p>
+<p>之后我会推出一篇文章讲解软件<a href="https://www.apifox.cn/">Apifox</a>的文章，自我感觉比postman好用。可以在上边设置一下全局token，简单清晰。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>Spring Boot</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring Boot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Windows10 安装jdk8</title>
     <url>/2021/04/22/2021/006/</url>
     <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><blockquote>
